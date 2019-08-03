@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
 	bool dashaction=false;
 	int dashtimer = 20;
 	bool dashtimerswitch = false;
-	bool dashactiondelay =false;
+	bool dashactiondelay = false;
 	float movementdirection = 0f;
 	Vector2 m_NewForce;
 	public Rigidbody2D _Rigidbody;
@@ -198,10 +198,7 @@ public class Movement : MonoBehaviour
     }
 	
 	void FixedUpdate()
-	
 	{
-		  
-			
 		if(!dashaction&&!dashactiondelay)
 		{
 			controller.Move(hmove * Time.fixedDeltaTime, false, jump);
@@ -256,9 +253,6 @@ public class Movement : MonoBehaviour
 		dashaction = false;
 		dashswitch = true;
 	}
-	
-	
-		
 	
 	public void ChangeItem(string itemType)
 	{
