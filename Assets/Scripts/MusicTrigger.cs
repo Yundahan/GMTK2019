@@ -36,6 +36,19 @@ public class MusicTrigger : MonoBehaviour
 		}
 	}
 	
+	void resume()
+	{
+		if(player.transform.position.x > transform.position.x)
+		{
+			yeetchill.Stop();
+			yeetnervous.Play();
+		}
+		else{
+			yeetnervous.Stop();
+			yeetchill.Play();
+		}
+	}
+	
 	void ShutUp()
 	{
 		yeetchill.Stop();
