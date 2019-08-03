@@ -29,6 +29,7 @@ public class Movement : MonoBehaviour
 	int dashtimer = 20;
 	bool dashtimerswitch = false;
 	bool dashactiondelay =false;
+	float movementdirection = 0f;
 	
 	
 	
@@ -89,6 +90,7 @@ public class Movement : MonoBehaviour
 	   {
 			dJumpDelay--;
 	   }
+	   
 	   if(audioChange)
 	   {	
 				if(!doubleJump)
@@ -134,6 +136,8 @@ public class Movement : MonoBehaviour
 		{
 			dashaction = false;
 			controller.Move(hmove * Time.fixedDeltaTime*5, false, false);
+				movementdirection = hmove;
+				
 			dashtimerswitch=true;
 			
 			
@@ -143,6 +147,11 @@ public class Movement : MonoBehaviour
 		{
 			dashtimer--;
 		}
+		if (hmove!=movementdirection && dashtimerswitch)
+		{
+			dashtimer=0;
+		}
+		
 		if(dashtimer==0)
 		{
 			controller.m_Rigidbody2D.velocity = Vector2.zero;
