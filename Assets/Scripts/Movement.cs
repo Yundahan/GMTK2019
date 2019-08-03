@@ -6,8 +6,6 @@ public class Movement : MonoBehaviour
 {
 	public CharacterController2D controller;
 	public Animator animator;
-	public AudioSource yeetchill;
-    public AudioSource yeetnervous;
 	public float hmove = 0f;
 	float speed = 100f;
 	public bool jump = false;
@@ -24,7 +22,6 @@ public class Movement : MonoBehaviour
 	bool dJumpDelayDelay = true;
 	int dJumpDelay =1;
 	bool airdash = false;
-	bool audioChange = false;
 	bool dashswitch=false;
 	bool dashaction=false;
 	int dashtimer = 20;
@@ -45,8 +42,8 @@ public class Movement : MonoBehaviour
     void Update()
     {
 		hmove = (Input.GetAxisRaw("Horizontal") * speed); 
-       if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
-	   {
+		if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
+		{
 			if(doubleJump)
 			{
 				dJumpDelayDelay = false;
@@ -78,39 +75,22 @@ public class Movement : MonoBehaviour
 				}
 			
 			}
-	   }
-	   if (!dJumpDelaySwitch && dJumpDelay ==0 &&(Input.GetKeyUp(KeyCode.Space) ||Input.GetKeyUp(KeyCode.UpArrow))) 
-	   {
+		}
+		if (!dJumpDelaySwitch && dJumpDelay ==0 &&(Input.GetKeyUp(KeyCode.Space) ||Input.GetKeyUp(KeyCode.UpArrow))) 
+		{
 			dJumpDelay=-1;			
 			dJumpSwitch=true;
 			
 	   
 		}	
-	   animator.SetFloat("HeroSpeed",Mathf.Abs(hmove));
-	   if (!dJumpDelayDelay&&dJumpDelay>0)
-	   {
+		animator.SetFloat("HeroSpeed",Mathf.Abs(hmove));
+		if (!dJumpDelayDelay&&dJumpDelay>0)
+		{
 			dJumpDelay--;
-	   }
-	   
-	   if(audioChange)
-	   {	
-				if(!doubleJump)
-			{
-				yeetnervous.Stop();
-				yeetchill.Play();
-		
-			}
-			else
-			{
-				yeetchill.Stop();
-				yeetnervous.Play();
-			
-			}
-			audioChange=false;
 		}
 		
-		 if (Input.GetKeyDown(KeyCode.F)&&dash&&dashswitch)
-		 {
+		if (Input.GetKeyDown(KeyCode.F)&&dash&&dashswitch)
+		{
 			dashswitch = false;
 			dashaction = true;
 			animator.SetBool("IsJumping", false);
@@ -118,7 +98,7 @@ public class Movement : MonoBehaviour
 			airdash = true;
 			dashactiondelay = true;
 			
-		 }
+		}
 		 
 	   
 	  
@@ -188,35 +168,30 @@ public class Movement : MonoBehaviour
 		{
 			case "fight enabler":
 				fighting = true;
-				audioChange = true;
 				doubleJump = false;
 				dash = false;
 				gravity = false;
 				break;
 			case "jump enabler":
 				doubleJump = true;
-				audioChange = true;
 				fighting = false;
 				dash = false;
 				gravity = false;
 				break;
 			case "dash enabler":
 				doubleJump = false;
-				audioChange = true;
 				fighting = false;
 				dash = true;
 				gravity = false;
 				break;
 			case "gravity enabler":
 				doubleJump = false;
-				audioChange = true;
 				fighting = false;
 				dash = false;
 				gravity = true;
 				break;
 			default:
 				doubleJump = false;
-				audioChange = true;
 				fighting = false;
 				dash = false;
 				gravity = false;

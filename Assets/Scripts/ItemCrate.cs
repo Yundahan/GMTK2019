@@ -22,7 +22,7 @@ public class ItemCrate : MonoBehaviour
 	
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if(GameObject.ReferenceEquals(col.gameObject, player) && Physics2D.OverlapCircle(transform.position + new Vector3(0, 0.5f, 0), directionCheckRadius))
+		if(GameObject.ReferenceEquals(col.gameObject, player) && Physics2D.OverlapCircle(transform.position + new Vector3(0, 0.3f, 0), directionCheckRadius))
 		{
 			Destroy(gameObject);
 		}
