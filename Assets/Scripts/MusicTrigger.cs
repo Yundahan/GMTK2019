@@ -35,4 +35,10 @@ public class MusicTrigger : MonoBehaviour
 			}
 		}
 	}
+	
+	void ShutUp()
+	{
+		yeetchill.Stop();
+		yeetnervous.Stop();
+	}
 }
