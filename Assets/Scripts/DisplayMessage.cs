@@ -6,22 +6,33 @@ using UnityEngine.UI;
 public class DisplayMessage : MonoBehaviour
 {
 	public Image image;
+	public Image image2;
+	public Text r;
 	
+	public Text startText;
 	public Text swordText;
 	
     // Start is called before the first frame update
     void Start()
     {
-        image.enabled = false;
+        image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		startText.enabled = true;
+		
 		swordText.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.R))
 		{
 			image.enabled = false;
+			image2.enabled = false;
+			r.enabled = false;
+			startText.enabled = false;
+		
 			swordText.enabled = false;
 		}
     }
@@ -29,6 +40,9 @@ public class DisplayMessage : MonoBehaviour
 	void SwordMessage()
 	{
 		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
 		swordText.enabled = true;
 	}
 }

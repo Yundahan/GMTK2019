@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryHandler : MonoBehaviour
 {
 	string currItem = "";
 	
-	public GameObject player;
-	
-	public SpriteRenderer sr;
-	
 	public GameObject DisplayMessage;
+	
+	public Image image;
 	
 	public Sprite sword;
 	
@@ -19,7 +18,7 @@ public class InventoryHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        image.enabled = false;
     }
 
     // Update is called once per frame
@@ -28,18 +27,19 @@ public class InventoryHandler : MonoBehaviour
         switch(currItem)
 		{
 			case "sword":
-				sr.sprite = sword;
-				float desiredScale = 0.8f;
+				image.sprite = sword;
+				float desiredScale = 0.4f;
 				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
 				break;
 			default:
-				sr.sprite = null;
+				image.sprite = null;
 				break;
 		}
     }
 	
 	void ChangeItem(string itemType)
 	{
+		image.enabled = true;
 		currItem = itemType;
 		
 		switch(currItem)
