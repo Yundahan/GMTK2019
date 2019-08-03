@@ -24,8 +24,8 @@ public class ItemBehaviour : MonoBehaviour
 	{
 		if(GameObject.ReferenceEquals(col.gameObject, player) && Input.GetKey(KeyCode.E))
 		{
-			InventoryHandler.SendMessage("ChangeItem", "sword");
-			InventoryHandler.SendMessage("ChangeItem", "sword");
+			InventoryHandler.SendMessage("ChangeItem", gameObject.name);
+			player.SendMessage("ChangeItem", gameObject.name);
 			Destroy(gameObject);
 		}
 	}

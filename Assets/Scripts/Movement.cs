@@ -10,6 +10,8 @@ public class Movement : MonoBehaviour
 	float speed = 70f;
 	public bool jump = false;
 	
+	public bool doubleJump = false;
+	public bool fighting = false;
 	
 	
 	
@@ -42,5 +44,24 @@ public class Movement : MonoBehaviour
 	public void OnLanding()
 	{
 		animator.SetBool("IsJumping", false);
+	}
+	
+	public void ChangeItem(string itemType)
+	{
+        switch(itemType)
+		{
+			case "fight enabler":
+				fighting = true;
+				doubleJump = false;
+				break;
+			case "jump enabler":
+				doubleJump = true;
+				fighting = false;
+				break;
+			default:
+				doubleJump = false;
+				fighting = false;
+				break;
+		}
 	}
 }
