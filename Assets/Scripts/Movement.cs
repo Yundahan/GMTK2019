@@ -24,6 +24,11 @@ public class Movement : MonoBehaviour
 	int dJumpDelay =1;
 	bool airdash = false;
 	bool audioChange = false;
+	bool dashswitch=false;
+	bool dashaction=false;
+	int dashtimer = 20;
+	bool dashtimerswitch = false;
+	bool dashactiondelay =false;
 	
 	
 	
@@ -100,6 +105,18 @@ public class Movement : MonoBehaviour
 			}
 			audioChange=false;
 		}
+		
+		 if (Input.GetKeyDown(KeyCode.F)&&dash&&dashswitch)
+		 {
+			dashswitch = false;
+			dashaction = true;
+			animator.SetBool("IsJumping", false);
+			animator.SetBool("isAirdash", true);
+			airdash = true;
+			dashactiondelay = true;
+			
+		 }
+		 
 	   
 	  
     }
@@ -109,10 +126,34 @@ public class Movement : MonoBehaviour
 	{
 		  
 			
-	   
-		controller.Move(hmove * Time.fixedDeltaTime, false, jump);
-		
+		if(!dashaction&&!dashactiondelay)
+		{
+			controller.Move(hmove * Time.fixedDeltaTime, false, jump);
+		}
+		else
+		{
+			dashaction = false;
+			controller.Move(hmove * Time.fixedDeltaTime*5, false, false);
+			dashtimerswitch=true;
+			
+			
+		}	
 		jump=false;
+		if(dashtimerswitch)
+		{
+			dashtimer--;
+		}
+		if(dashtimer==0)
+		{
+			controller.m_Rigidbody2D.velocity = Vector2.zero;
+			controller.Move(hmove * Time.fixedDeltaTime, false, false);
+			dashtimer=20;
+			dashtimerswitch=false;
+			animator.SetBool("isAirdash", false);
+			animator.SetBool("IsJumping", true);
+			airdash=false;
+			dashactiondelay = false;
+		}
 		
 	}
 	public void OnLanding()
@@ -124,6 +165,8 @@ public class Movement : MonoBehaviour
 		dJumpDelayDelay = true;
 		dJumpDelay = 1;
 		airdash = false;
+		dashaction = false;
+		dashswitch = true;
 	}
 	
 	
