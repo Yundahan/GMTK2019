@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
 	public CharacterController2D controller;
 	public Animator animator;
 	public float hmove = 0f;
-	float speed = 70f;
+	float speed = 100f;
 	public bool jump = false;
 	
 	public bool doubleJump = false;
