@@ -28,6 +28,19 @@ public class Movement : MonoBehaviour
 	bool dashtimerswitch = false;
 	bool dashactiondelay =false;
 	float movementdirection = 0f;
+	Vector2 m_NewForce;
+	public Rigidbody2D _Rigidbody;
+	public Sprite mysticRed;
+    public SpriteRenderer sr;
+	public Texture2D tex;
+	bool rotaA,rotaD,rotaS = false;
+	Vector2 velocity;
+	bool musictrig = true;
+	bool musicnew = true;
+	char musictype = 'c';
+	public AudioSource yeetmystery;
+	public MusicTrigger mT;
+	
 	
 	
 	
@@ -40,7 +53,9 @@ public class Movement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+	
     {
+		velocity=_Rigidbody.GetPointVelocity(Vector2.one);
 		hmove = (Input.GetAxisRaw("Horizontal") * speed); 
 		if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
 		{
@@ -100,7 +115,85 @@ public class Movement : MonoBehaviour
 			
 		}
 		 
+		if (gravity)
+	    {
+			if(Input.GetKey(KeyCode.A))
+			{	
+				if(!rotaA)
+				{	
+					if(musicnew)
+					{
+						mT.pPause();
+						yeetmystery.Play();
+						musicnew=false;
+					}
+					else if (musictrig)
+					{
+						mT.pPause();
+						yeetmystery.UnPause();
+					}
+				}
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
+				Physics2D.gravity = new Vector2(-100f, 0);
+				rotaA=true;
+				rotaD=false;
+				rotaS=false;
+				animator.SetBool("mysteryA",true);
+				animator.SetBool("mysteryD",false);
+				animator.SetBool("isJump",false);
+				
+				
+			}
+			if(Input.GetKey(KeyCode.S))
+			{
+				if(!rotaS)
+				{
+					musictrig=true;
+					yeetmystery.Pause();
+					mT.uUnPause();  
+					
+				}
+				Physics2D.gravity = new Vector2(0, -9.8f);
+				rotaA=false;
+				rotaD=false;
+				rotaS=true;
+				animator.SetBool("mysteryD",false);
+				animator.SetBool("mysteryA",false);
+				animator.SetBool("isJump",true);
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
+			
+			
+			}
+			if(Input.GetKey(KeyCode.D))
+			{
+				if(!rotaD)
+				{
+					if(musicnew)
+					{
+						mT.pPause();
+						yeetmystery.Play();
+						musicnew=false;
+					}
+					else if (musictrig)
+					{
+						mT.pPause();
+						yeetmystery.UnPause();
+					}
+				}
+				animator.SetBool("mysteryD",true);
+				animator.SetBool("mysteryA",false);
+				animator.SetBool("isJump",false);
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
+				Physics2D.gravity = new Vector2(100f, 0);
+				sr.sprite = mysticRed;
+				rotaA=false;
+				rotaS=false;
+				rotaD=true;
+				
+			
+			}
 	   
+		}	
 	  
     }
 	
@@ -144,7 +237,12 @@ public class Movement : MonoBehaviour
 			airdash=false;
 			dashactiondelay = false;
 		}
+		if((rotaA||rotaD)&&(velocity.x>6))
+		{	
 		
+			
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
+		}
 	}
 	public void OnLanding()
 	{
