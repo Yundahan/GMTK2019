@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
 {
 	public CharacterController2D controller;
 	public Animator animator;
+	public AudioSource yeetchill;
+    public AudioSource yeetnervous;
 	public float hmove = 0f;
 	float speed = 100f;
 	public bool jump = false;
@@ -18,6 +20,7 @@ public class Movement : MonoBehaviour
 	bool dJumpDelayDelay = true;
 	int dJumpDelay =1;
 	bool airdash = false;
+	bool audioChange = false;
 	
 	
 	
@@ -78,6 +81,23 @@ public class Movement : MonoBehaviour
 	   {
 			dJumpDelay--;
 	   }
+	   if(audioChange)
+	   {	
+				if(!doubleJump)
+			{
+				yeetnervous.Stop();
+				yeetchill.Play();
+		
+			}
+			else
+			{
+				yeetchill.Stop();
+				yeetnervous.Play();
+			
+			}
+			audioChange=false;
+		}
+	   
 	  
     }
 	
@@ -103,20 +123,26 @@ public class Movement : MonoBehaviour
 		airdash = false;
 	}
 	
+	
+		
+	
 	public void ChangeItem(string itemType)
 	{
         switch(itemType)
 		{
 			case "fight enabler":
 				fighting = true;
+				audioChange = true;
 				doubleJump = false;
 				break;
 			case "jump enabler":
 				doubleJump = true;
+				audioChange = true;
 				fighting = false;
 				break;
 			default:
 				doubleJump = false;
+				audioChange = true;
 				fighting = false;
 				break;
 		}
