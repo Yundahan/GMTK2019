@@ -16,10 +16,12 @@ public class InventoryHandler : MonoBehaviour
 	public Sprite sword;
 	public Sprite jumpThing;
 	public Sprite dashThing;
+	public Sprite gravityThing;
 	
 	public bool swordMessage = false;
 	public bool jumpMessage = false;
 	public bool dashMessage = false;
+	public bool gravityMessage = false;
 	
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,11 @@ public class InventoryHandler : MonoBehaviour
 				break;
 			case "dash enabler":
 				image.sprite = dashThing;
+				desiredScale = 0.4f;
+				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
+				break;
+			case "gravity enabler":
+				image.sprite = gravityThing;
 				desiredScale = 0.4f;
 				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
 				break;
@@ -79,6 +86,13 @@ public class InventoryHandler : MonoBehaviour
 				{
 					DisplayMessage.SendMessage("DashMessage");
 					dashMessage = true;
+				}
+				break;
+			case "gravity enabler":
+				if(!gravityMessage)
+				{
+					DisplayMessage.SendMessage("GravityMessage");
+					gravityMessage = true;
 				}
 				break;
 			default:

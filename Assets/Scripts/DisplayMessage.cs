@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DisplayMessage : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class DisplayMessage : MonoBehaviour
 	public Text swordText;
 	public Text jumpText;
 	public Text dashText;
+	public Text gravityText;
+	public Text deathText;
 	
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class DisplayMessage : MonoBehaviour
 		swordText.enabled = false;
 		jumpText.enabled = false;
 		dashText.enabled = false;
+		gravityText.enabled = false;
+		deathText.enabled = false;
     }
 
     // Update is called once per frame
@@ -32,6 +37,12 @@ public class DisplayMessage : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.R))
 		{
+			if(deathText.enabled)
+			{
+				Scene thisScene = SceneManager.GetActiveScene();
+				SceneManager.LoadScene(thisScene.name);
+			}
+			
 			image.enabled = false;
 			image2.enabled = false;
 			r.enabled = false;
@@ -40,6 +51,8 @@ public class DisplayMessage : MonoBehaviour
 			swordText.enabled = false;
 			jumpText.enabled = false;
 			dashText.enabled = false;
+			gravityText.enabled = false;
+			deathText.enabled = false;
 		}
     }
 	
@@ -68,5 +81,23 @@ public class DisplayMessage : MonoBehaviour
 		r.enabled = true;
 		
 		dashText.enabled = true;
+	}
+	
+	void GravityMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		gravityText.enabled = true;
+	}
+	
+	void DeathMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		deathText.enabled = true;
 	}
 }
