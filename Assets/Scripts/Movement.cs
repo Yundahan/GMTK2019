@@ -12,8 +12,11 @@ public class Movement : MonoBehaviour
 	float speed = 100f;
 	public bool jump = false;
 	
+	//powerup booleans
 	public bool doubleJump = false;
 	public bool fighting = false;
+	public bool dash = false;
+	
 	public bool dJumpSwitch = false;
 	bool dJumpDelaySwitch = true;
 	public bool dJumpDebugSwitch = true;
@@ -134,16 +137,25 @@ public class Movement : MonoBehaviour
 				fighting = true;
 				audioChange = true;
 				doubleJump = false;
+				dash = false;
 				break;
 			case "jump enabler":
 				doubleJump = true;
 				audioChange = true;
 				fighting = false;
+				dash = false;
+				break;
+			case "dash enabler":
+				doubleJump = false;
+				audioChange = true;
+				fighting = false;
+				dash = true;
 				break;
 			default:
 				doubleJump = false;
 				audioChange = true;
 				fighting = false;
+				dash = false;
 				break;
 		}
 	}

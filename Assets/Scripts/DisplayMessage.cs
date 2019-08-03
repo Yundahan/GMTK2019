@@ -12,6 +12,7 @@ public class DisplayMessage : MonoBehaviour
 	public Text startText;
 	public Text swordText;
 	public Text jumpText;
+	public Text dashText;
 	
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class DisplayMessage : MonoBehaviour
 		
 		swordText.enabled = false;
 		jumpText.enabled = false;
+		dashText.enabled = false;
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class DisplayMessage : MonoBehaviour
 		
 			swordText.enabled = false;
 			jumpText.enabled = false;
+			dashText.enabled = false;
 		}
     }
 	
@@ -56,5 +59,14 @@ public class DisplayMessage : MonoBehaviour
 		r.enabled = true;
 		
 		jumpText.enabled = true;
+	}
+	
+	void DashMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		dashText.enabled = true;
 	}
 }

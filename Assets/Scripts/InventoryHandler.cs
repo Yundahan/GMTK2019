@@ -15,9 +15,11 @@ public class InventoryHandler : MonoBehaviour
 	
 	public Sprite sword;
 	public Sprite jumpThing;
+	public Sprite dashThing;
 	
 	public bool swordMessage = false;
 	public bool jumpMessage = false;
+	public bool dashMessage = false;
 	
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,11 @@ public class InventoryHandler : MonoBehaviour
 				desiredScale = 0.4f;
 				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
 				break;
+			case "dash enabler":
+				image.sprite = dashThing;
+				desiredScale = 0.4f;
+				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
+				break;
 			default:
 				image.sprite = null;
 				break;
@@ -57,12 +64,21 @@ public class InventoryHandler : MonoBehaviour
 				if(!swordMessage)
 				{
 					DisplayMessage.SendMessage("SwordMessage");
+					swordMessage = true;
 				}
 				break;
 			case "jump enabler":
 				if(!jumpMessage)
 				{
 					DisplayMessage.SendMessage("JumpMessage");
+					jumpMessage = true;
+				}
+				break;
+			case "dash enabler":
+				if(!dashMessage)
+				{
+					DisplayMessage.SendMessage("DashMessage");
+					dashMessage = true;
 				}
 				break;
 			default:
