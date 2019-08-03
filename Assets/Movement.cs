@@ -4,42 +4,43 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-	private bool a,b=false;
+	public CharacterController2D controller;
+	public Animator animator;
+	public float hmove = 0f;
+	float speed = 70f;
+	public bool jump = false;
+	
+	
+	
 	
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
-		{
-		 a=true;
-		}
-		if(Input.GetKeyUp(KeyCode.D))
-		{
-		 a=false;
-		}
-	 if(a)
-		{
-			Debug.Log("D key was pressed.");
-			transform.Translate(Vector2.right * Time.deltaTime);
-		}
-	 if(Input.GetKeyDown(KeyCode.A))
-		{
-		 b=true;
-		}
-		if(Input.GetKeyUp(KeyCode.A))
-		{
-		 b=false;
-		}
-		if(b)
-		{
-			Debug.Log("A key was pressed.");
-			transform.Translate(Vector2.left * Time.deltaTime);
-		}
+		hmove = (Input.GetAxisRaw("Horizontal") * speed); 
+       if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
+	   {
+			animator.SetBool("IsJumping", true);
+			jump=true;
+			
+	   }
+	   animator.SetFloat("HeroSpeed",Mathf.Abs(hmove));
     }
+	
+	void FixedUpdate()
+	{
+		controller.Move(hmove * Time.fixedDeltaTime, false, jump);
+		
+		jump=false;
+		
+	}
+	public void OnLanding()
+	{
+		animator.SetBool("IsJumping", false);
+	}
 }
