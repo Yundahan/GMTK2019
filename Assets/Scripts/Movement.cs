@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-	private bool a,b = false;
+	private bool a, b = false;
+	
+	private string currItem = "";
 	
     // Start is called before the first frame update
     void Start()
@@ -17,11 +19,11 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.D))
 		{
-		 a = true;
+			a = true;
 		}
 		if(Input.GetKeyUp(KeyCode.D))
 		{
-		 a = false;
+			a = false;
 		}
 	 if(a)
 		{
@@ -30,11 +32,11 @@ public class Movement : MonoBehaviour
 		}
 	 if(Input.GetKeyDown(KeyCode.A))
 		{
-		 b = true;
+			b = true;
 		}
 		if(Input.GetKeyUp(KeyCode.A))
 		{
-		 b = false;
+			b = false;
 		}
 		if(b)
 		{
@@ -42,4 +44,9 @@ public class Movement : MonoBehaviour
 			transform.Translate(Vector2.left * Time.deltaTime);
 		}
     }
+	
+	void changeItem(string itemType)
+	{
+		currItem = itemType;
+	}
 }
