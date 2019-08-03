@@ -12,11 +12,12 @@ public class Movement : MonoBehaviour
 	
 	public bool doubleJump = false;
 	public bool fighting = false;
-	bool dJumpSwitch = false;
+	public bool dJumpSwitch = false;
 	bool dJumpDelaySwitch = true;
-	bool dJumpDebugSwitch = true;
+	public bool dJumpDebugSwitch = true;
 	bool dJumpDelayDelay = true;
-	int dJumpDelay =10;
+	int dJumpDelay =1;
+	bool airdash = false;
 	
 	
 	
@@ -41,14 +42,20 @@ public class Movement : MonoBehaviour
 			{
 				dJumpSwitch=false;
 				animator.SetBool("IsJumping", false);
+				animator.SetBool("isAirdash", true);
+				airdash = true;
 				controller.m_Grounded = true;
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
 				controller.Move(hmove * Time.fixedDeltaTime, false, true);
 				dJumpDebugSwitch=false;
 			}
 			else
 			{
-			
-				animator.SetBool("IsJumping", true);
+				if (!airdash)
+				{
+				
+					animator.SetBool("IsJumping", true);
+				}
 				jump=true;
 				if(dJumpDelaySwitch)
 				{
@@ -88,10 +95,12 @@ public class Movement : MonoBehaviour
 	public void OnLanding()
 	{
 		animator.SetBool("IsJumping", false);
+		animator.SetBool("isAirdash", false);
 		dJumpDelaySwitch=true;
 		dJumpDebugSwitch = true;
 		dJumpDelayDelay = true;
-		dJumpDelay = 10;
+		dJumpDelay = 1;
+		airdash = false;
 	}
 	
 	public void ChangeItem(string itemType)
