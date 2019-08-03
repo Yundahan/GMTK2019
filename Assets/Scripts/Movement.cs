@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
 	public bool doubleJump = false;
 	public bool fighting = false;
 	public bool dash = false;
+	public bool gravity = false;
 	
 	public bool dJumpSwitch = false;
 	bool dJumpDelaySwitch = true;
@@ -190,24 +191,35 @@ public class Movement : MonoBehaviour
 				audioChange = true;
 				doubleJump = false;
 				dash = false;
+				gravity = false;
 				break;
 			case "jump enabler":
 				doubleJump = true;
 				audioChange = true;
 				fighting = false;
 				dash = false;
+				gravity = false;
 				break;
 			case "dash enabler":
 				doubleJump = false;
 				audioChange = true;
 				fighting = false;
 				dash = true;
+				gravity = false;
+				break;
+			case "gravity enabler":
+				doubleJump = false;
+				audioChange = true;
+				fighting = false;
+				dash = false;
+				gravity = true;
 				break;
 			default:
 				doubleJump = false;
 				audioChange = true;
 				fighting = false;
 				dash = false;
+				gravity = false;
 				break;
 		}
 	}
