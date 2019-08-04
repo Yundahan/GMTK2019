@@ -17,11 +17,15 @@ public class InventoryHandler : MonoBehaviour
 	public Sprite jumpThing;
 	public Sprite dashThing;
 	public Sprite gravityThing;
+	public Sprite coin;
+	public Sprite clover;
 	
 	public bool swordMessage = false;
 	public bool jumpMessage = false;
 	public bool dashMessage = false;
 	public bool gravityMessage = false;
+	public bool invincibilityMessage = false;
+	public bool victoryMessage = false;
 	
     // Start is called before the first frame update
     void Start()
@@ -51,6 +55,16 @@ public class InventoryHandler : MonoBehaviour
 				break;
 			case "gravity enabler":
 				image.sprite = gravityThing;
+				desiredScale = 0.4f;
+				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
+				break;
+			case "invincibility enabler":
+				image.sprite = coin;
+				desiredScale = 0.4f;
+				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
+				break;
+			case "victory enabler":
+				image.sprite = clover;
 				desiredScale = 0.4f;
 				transform.localScale = new Vector3(desiredScale, desiredScale, desiredScale);
 				break;
@@ -93,6 +107,20 @@ public class InventoryHandler : MonoBehaviour
 				{
 					DisplayMessage.SendMessage("GravityMessage");
 					gravityMessage = true;
+				}
+				break;
+			case "invincibility enabler":
+				if(!invincibilityMessage)
+				{
+					DisplayMessage.SendMessage("InvincibilityMessage");
+					invincibilityMessage = true;
+				}
+				break;
+			case "victory enabler":
+				if(!victoryMessage)
+				{
+					DisplayMessage.SendMessage("VictoryMessage");
+					victoryMessage = true;
 				}
 				break;
 			default:

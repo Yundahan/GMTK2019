@@ -15,6 +15,8 @@ public class DisplayMessage : MonoBehaviour
 	public Text jumpText;
 	public Text dashText;
 	public Text gravityText;
+	public Text invincText;
+	public Text victoryText;
 	public Text deathText;
 	
     // Start is called before the first frame update
@@ -30,6 +32,8 @@ public class DisplayMessage : MonoBehaviour
 		dashText.enabled = false;
 		gravityText.enabled = false;
 		deathText.enabled = false;
+		invincText.enabled = false;
+		victoryText.enabled = false;
     }
 
     // Update is called once per frame
@@ -53,6 +57,8 @@ public class DisplayMessage : MonoBehaviour
 			dashText.enabled = false;
 			gravityText.enabled = false;
 			deathText.enabled = false;
+			invincText.enabled = false;
+			victoryText.enabled = false;
 		}
     }
 	
@@ -90,6 +96,24 @@ public class DisplayMessage : MonoBehaviour
 		r.enabled = true;
 		
 		gravityText.enabled = true;
+	}
+	
+	void InvincibilityMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		invincText.enabled = true;
+	}
+	
+	void VictoryMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		victoryText.enabled = true;
 	}
 	
 	void DeathMessage()

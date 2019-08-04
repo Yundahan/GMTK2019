@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
 	public bool fighting = false;
 	public bool dash = false;
 	public bool gravity = false;
+	public bool invinc = false;
+	public bool canWin = false;
 	
 	public bool dJumpSwitch = false;
 	bool dJumpDelaySwitch = true;
@@ -263,30 +265,56 @@ public class Movement : MonoBehaviour
 				doubleJump = false;
 				dash = false;
 				gravity = false;
+				invinc = false;
+				canWin = false;
 				break;
 			case "jump enabler":
 				doubleJump = true;
 				fighting = false;
 				dash = false;
 				gravity = false;
+				invinc = false;
+				canWin = false;
 				break;
 			case "dash enabler":
 				doubleJump = false;
 				fighting = false;
 				dash = true;
 				gravity = false;
+				invinc = false;
+				canWin = false;
 				break;
 			case "gravity enabler":
 				doubleJump = false;
 				fighting = false;
 				dash = false;
 				gravity = true;
+				invinc = false;
+				canWin = false;
+				break;
+			case "invincibility enabler":
+				doubleJump = false;
+				fighting = false;
+				dash = false;
+				gravity = false;
+				invinc = true;
+				canWin = false;
+				break;
+			case "victory enabler":
+				doubleJump = false;
+				fighting = false;
+				dash = false;
+				gravity = false;
+				invinc = false;
+				canWin = true;
 				break;
 			default:
 				doubleJump = false;
 				fighting = false;
 				dash = false;
 				gravity = false;
+				invinc = false;
+				canWin = false;
 				break;
 		}
 	}
