@@ -10,6 +10,10 @@ public class lever : MonoBehaviour
 	
 	public GameObject player;
 	
+	public SpriteRenderer sr;
+	
+	public Sprite leverDown;
+	
 	bool leverpulled = false;
 	
     // Start is called before the first frame update
@@ -35,8 +39,8 @@ public class lever : MonoBehaviour
 			b1.SendMessage("moveBlock");
 			b2.SendMessage("moveBlock");
 			b3.SendMessage("moveBlock");
-			Debug.Log("lever pulled");
 			leverpulled = true;
+			sr.sprite = leverDown;
 		}
 	}
 }
