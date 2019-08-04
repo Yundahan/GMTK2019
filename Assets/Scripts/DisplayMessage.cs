@@ -19,6 +19,7 @@ public class DisplayMessage : MonoBehaviour
 	public Text victoryText;
 	public Text deathText;
 	public Text levelText;
+	public Text level2Text;
 	
 	int level = 1;
 	
@@ -34,6 +35,7 @@ public class DisplayMessage : MonoBehaviour
 	public Movement move;
 	public AudioSource doorlock;
 	public MusicTriggerTemple mTT;
+	public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,7 @@ public class DisplayMessage : MonoBehaviour
 		invincText.enabled = false;
 		victoryText.enabled = false;
 		levelText.enabled = false;
+		level2Text.enabled = false;
     }
 
     // Update is called once per frame
@@ -73,23 +76,35 @@ public class DisplayMessage : MonoBehaviour
 		if(victorytimecontrol>=victorytime&&victoryswitch3)
 		{
 	
-			levelText.enabled = false;
+			
 			image.enabled = false;
 			if(mT.iamtheone)
 			{
+				levelText.enabled = false;
 				mT.uUnPause();
 			}
 			else
 			{
-				mT.iamtheone=true;
+				level2Text.enabled = false;
+				
 				mT.yeetchill.Play();
 				
 			}
 			teleport=true;
 			victoryswitch3=false;
+			if(mT.iamtheone)
+			{
 			player.transform.position = new Vector3(401, 23.7f, 0);
 			level++;
 			move.ResumeAllMovement();
+			}
+			else
+			{
+			mT.iamtheone=true;
+			player.transform.position = new Vector3(-14, 6.7f, 0);
+			animator.SetBool("EndofGame",true);
+			}
+			
 			
 		}
         if(Input.GetKey(KeyCode.R))
@@ -181,6 +196,11 @@ public class DisplayMessage : MonoBehaviour
 	{
 		image.enabled = true;
 		levelText.enabled = true;
+	}
+	void Level2Message()
+	{
+		image.enabled = true;
+		level2Text.enabled = true;
 	}
 	
 	public void resetOnDeath(){

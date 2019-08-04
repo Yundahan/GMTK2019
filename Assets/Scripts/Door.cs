@@ -38,16 +38,18 @@ public class Door : MonoBehaviour
 			if(mT.iamtheone)
 			{
 				mT.pPause();
+				dM.SendMessage("LevelMessage");
 			}
 			else
 			{
 				mTT.Glasorgel.Stop();
 				mTT.mysteryT.Stop();
 				mTT.mysteryI.Stop();
+				dM.SendMessage("Level2Message");
 				
 			}
 			yeetvictoreh.Play();
-			dM.SendMessage("LevelMessage");
+
 			
 			
 		}
