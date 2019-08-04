@@ -33,6 +33,12 @@ public class EnemyBehaviour1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+	
+	void FixedUpdate()
+	
+	{
 		if(Time.time - time >= 1.0f && dead)
 		{
 			if(drops)
@@ -67,7 +73,9 @@ public class EnemyBehaviour1 : MonoBehaviour
 			float x = transform.localScale.x * -1;
 			transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
 		}
-    }
+	
+	
+	}
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{

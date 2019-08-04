@@ -32,36 +32,49 @@ public class EnemyBehaviour2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(Time.time - time >= 1.0f && dead)
-		{
-			Destroy(gameObject);
-			return;
-		}
-		if(dead)
-		{
-			return;
-		}
-        if(right && (transform.position.x < rightV.x || transform.position.y < rightV.y))
-		{
-			transform.position += dir * 0.03f;
-		}
-		else if(right)
-		{
-			right = false;
-			float x = transform.localScale.x * -1;
-			transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
-		}
-		else if(!right && (transform.position.x > leftV.x || transform.position.y > leftV.y))
-		{
-			transform.position -= dir * 0.03f;
-		}
-		else if(!right)
-		{
-			right = true;
-			float x = transform.localScale.x * -1;
-			transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
-		}
+		
     }
+	
+	void FixedUpdate()
+	
+	{
+	
+		if(Time.time - time >= 1.0f && dead)
+			{
+				Destroy(gameObject);
+				return;
+			}
+			if(dead)
+			{
+				return;
+			}
+			if(right && (transform.position.x < rightV.x || transform.position.y < rightV.y))
+			{
+				transform.position += dir * 0.03f;
+			}
+			else if(right)
+			{
+				right = false;
+				float x = transform.localScale.x * -1;
+				transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+			}
+			else if(!right && (transform.position.x > leftV.x || transform.position.y > leftV.y))
+			{
+				transform.position -= dir * 0.03f;
+			}
+			else if(!right)
+			{
+				right = true;
+				float x = transform.localScale.x * -1;
+				transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+			}
+		
+	
+	
+	
+	
+	
+	}
 	
 	void OnTriggerEnter2D(Collider2D col)
 	{
@@ -87,6 +100,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 		else{
 			if(player.transform.position.y - transform.position.y >= 0.8f)
 			{
+				pop.Play();
 				dead = true;
 				animator.SetBool("dead", true);
 				time = Time.time;
