@@ -17,7 +17,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 	public float rightX;
 	
 	public Animator animator;
-	
+	public AudioSource pop;
 	public bool drops;
 	public GameObject droppedItem;
 	
@@ -93,6 +93,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 		else{
 			if(player.transform.position.y - transform.position.y >= 0.8f)
 			{
+				pop.Play();
 				dead = true;
 				animator.SetBool("dead", true);
 				time = Time.time;
