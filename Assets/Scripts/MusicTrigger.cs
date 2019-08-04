@@ -8,7 +8,8 @@ public class MusicTrigger : MonoBehaviour
 	public AudioSource yeetchill;
     public AudioSource yeetnervous;
 	private bool chill = false;
-	
+	private bool mysterytrue = false;
+	private bool isWasPlaying = false;
 	
     // Start is called before the first frame update
     void Start()
@@ -30,13 +31,32 @@ public class MusicTrigger : MonoBehaviour
 			if(player.transform.position.x > transform.position.x)
 			{
 				yeetchill.Stop();
-				yeetnervous.Play();
-				chill=false;
-			}
-			else{
-				yeetnervous.Stop();
-				yeetchill.Play();
+				if(!mysterytrue)
+				{
+					isWasPlaying = true;
+					yeetnervous.Play();
+				}
+				else 
+				{
+					isWasPlaying = false;
+				}
+				
 				chill=true;
+			}
+			else
+			{
+				yeetnervous.Stop();
+				if(!mysterytrue)
+				{
+					isWasPlaying = true;
+					yeetchill.Play();
+				}
+				else 
+				{
+					isWasPlaying = false;
+				}
+				
+				chill=false;
 			}
 		}
 	}
@@ -46,13 +66,32 @@ public class MusicTrigger : MonoBehaviour
 		if(player.transform.position.x > transform.position.x)
 		{
 			yeetchill.Stop();
-			yeetnervous.Play();
-			chill=false;
-		}
-		else{
-			yeetnervous.Stop();
-			yeetchill.Play();
+			if(!mysterytrue)
+			{
+				isWasPlaying = true;
+				yeetnervous.Play();
+			}	
+			else 
+			{
+				isWasPlaying = false;
+			}
+			
 			chill=true;
+		}
+		else
+		{
+			yeetnervous.Stop();
+			if(!mysterytrue)
+			{
+				isWasPlaying = true;
+				yeetchill.Play();
+			}
+			else 
+			{
+				isWasPlaying = false;
+			}
+			
+			chill=false;
 		}
 	}
 	
@@ -82,14 +121,15 @@ public class MusicTrigger : MonoBehaviour
 		if(chill)
 		{
 			yeetnervous.Pause();
+			mysterytrue = true;
 			
-			Debug.Log("ich sollte gechillt pausiert sein");
 			
 		}
 		else
 		{
+			mysterytrue = true;
 			yeetchill.Pause();
-		Debug.Log("ich sollte nervös pausiert sein");
+		
 		}
 
 	}
@@ -99,12 +139,28 @@ public class MusicTrigger : MonoBehaviour
 	
 		if(chill)
 		{
+			mysterytrue = false;
+			if(isWasPlaying)
+			{
+				yeetnervous.UnPause();
 			
-			yeetnervous.UnPause();
+			}
+			else
+			{
+				yeetnervous.Play();
+			}
 		}
 		else
 		{
-			yeetchill.UnPause();
+			mysterytrue = false;
+			if(isWasPlaying)
+			{
+				yeetchill.UnPause();
+			}
+			else
+			{
+				yeetchill.Play();
+			}
 		
 		}
 	}		

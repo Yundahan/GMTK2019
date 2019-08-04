@@ -909,6 +909,9 @@ MonoBehaviour:
   mysticRed: {fileID: 21300000, guid: 8ee91c1e00160fa4b879a036b337b440, type: 3}
   sr: {fileID: 212425837}
   tex: {fileID: 0}
+  rotaA: 0
+  rotaD: 0
+  rotaS: 0
   yeetmystery: {fileID: 212425844}
   mT: {fileID: 1421372221}
 --- !u!58 &212425842

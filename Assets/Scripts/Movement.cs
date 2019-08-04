@@ -35,13 +35,15 @@ public class Movement : MonoBehaviour
 	public Sprite mysticRed;
     public SpriteRenderer sr;
 	public Texture2D tex;
-	bool rotaA,rotaD,rotaS = false;
+	public bool rotaA,rotaD,rotaS = false;
 	Vector2 velocity;
 	bool musictrig = true;
 	bool musicnew = true;
 	char musictype = 'c';
 	public AudioSource yeetmystery;
 	public MusicTrigger mT;
+	Vector2 antiVelocity = new Vector2(0, -50f);
+	private bool mainSwitch = true;
 	
 	
 	
@@ -57,190 +59,201 @@ public class Movement : MonoBehaviour
     void Update()
 	
     {
-		velocity=_Rigidbody.GetPointVelocity(Vector2.one);
-		hmove = (Input.GetAxisRaw("Horizontal") * speed); 
-		if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
+		if(mainSwitch)
 		{
-			if(doubleJump)
+			velocity=_Rigidbody.GetPointVelocity(Vector2.one);
+			hmove = (Input.GetAxisRaw("Horizontal") * speed); 
+			if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.UpArrow))
 			{
-				dJumpDelayDelay = false;
+				if(doubleJump)
+				{
+					dJumpDelayDelay = false;
+				}
+				if (doubleJump && dJumpSwitch && dJumpDebugSwitch)
+				{
+					dJumpSwitch=false;
+					animator.SetBool("IsJumping", false);
+					animator.SetBool("isAirdash", true);
+					airdash = true;
+					controller.m_Grounded = true;
+					controller.m_Rigidbody2D.velocity = Vector2.zero;
+					controller.Move(hmove * Time.fixedDeltaTime, false, true);
+					dJumpDebugSwitch=false;
+				}
+				else
+				{
+					if (!airdash)
+					{
+					
+						animator.SetBool("IsJumping", true);
+					}
+					jump=true;
+					if(dJumpDelaySwitch)
+					{
+						dJumpSwitch=false;
+						dJumpDelaySwitch=false;
+						
+					}
+				
+				}
 			}
-			if (doubleJump && dJumpSwitch && dJumpDebugSwitch)
+			if (!dJumpDelaySwitch && dJumpDelay ==0 &&(Input.GetKeyUp(KeyCode.Space) ||Input.GetKeyUp(KeyCode.UpArrow))) 
 			{
-				dJumpSwitch=false;
+				dJumpDelay=-1;			
+				dJumpSwitch=true;
+				
+		   
+			}	
+			animator.SetFloat("HeroSpeed",Mathf.Abs(hmove));
+			if (!dJumpDelayDelay&&dJumpDelay>0)
+			{
+				dJumpDelay--;
+			}
+			
+			if (Input.GetKeyDown(KeyCode.F)&&dash&&dashswitch)
+			{
+				dashswitch = false;
+				dashaction = true;
 				animator.SetBool("IsJumping", false);
 				animator.SetBool("isAirdash", true);
 				airdash = true;
-				controller.m_Grounded = true;
-				controller.m_Rigidbody2D.velocity = Vector2.zero;
-				controller.Move(hmove * Time.fixedDeltaTime, false, true);
-				dJumpDebugSwitch=false;
-			}
-			else
-			{
-				if (!airdash)
-				{
+				dashactiondelay = true;
 				
-					animator.SetBool("IsJumping", true);
-				}
-				jump=true;
-				if(dJumpDelaySwitch)
-				{
-					dJumpSwitch=false;
-					dJumpDelaySwitch=false;
-					
-				}
-			
 			}
-		}
-		if (!dJumpDelaySwitch && dJumpDelay ==0 &&(Input.GetKeyUp(KeyCode.Space) ||Input.GetKeyUp(KeyCode.UpArrow))) 
-		{
-			dJumpDelay=-1;			
-			dJumpSwitch=true;
-			
-	   
-		}	
-		animator.SetFloat("HeroSpeed",Mathf.Abs(hmove));
-		if (!dJumpDelayDelay&&dJumpDelay>0)
-		{
-			dJumpDelay--;
-		}
-		
-		if (Input.GetKeyDown(KeyCode.F)&&dash&&dashswitch)
-		{
-			dashswitch = false;
-			dashaction = true;
-			animator.SetBool("IsJumping", false);
-			animator.SetBool("isAirdash", true);
-			airdash = true;
-			dashactiondelay = true;
-			
-		}
-		 
-		if (gravity)
-	    {
-			if(Input.GetKey(KeyCode.A))
-			{	
-				if(!rotaA)
+			 
+			if (gravity)
+			{
+				if(Input.GetKey(KeyCode.A))
 				{	
-					if(musicnew)
-					{
-						mT.pPause();
-						yeetmystery.Play();
-						musicnew=false;
+					if(!rotaA)
+					{	
+						if(musicnew)
+						{
+							mT.pPause();
+							yeetmystery.Play();
+							musicnew=false;
+						}
+						else if (musictrig)
+						{
+							mT.pPause();
+							yeetmystery.UnPause();
+						}
 					}
-					else if (musictrig)
-					{
-						mT.pPause();
-						yeetmystery.UnPause();
-					}
-				}
-				controller.m_Rigidbody2D.velocity = Vector2.zero;
-				Physics2D.gravity = new Vector2(-100f, 0);
-				rotaA=true;
-				rotaD=false;
-				rotaS=false;
-				animator.SetBool("mysteryA",true);
-				animator.SetBool("mysteryD",false);
-				animator.SetBool("isJump",false);
-				
-				
-			}
-			if(Input.GetKey(KeyCode.S))
-			{
-				if(!rotaS)
-				{
-					musictrig=true;
-					yeetmystery.Pause();
-					mT.uUnPause();  
+					controller.m_Rigidbody2D.velocity = Vector2.zero;
+					Physics2D.gravity = new Vector2(-100f, 0);
+					rotaA=true;
+					rotaD=false;
+					rotaS=false;
+					animator.SetBool("mysteryA",true);
+					animator.SetBool("mysteryD",false);
+					animator.SetBool("IsJumping",false);
+					
 					
 				}
-				Physics2D.gravity = new Vector2(0, -9.8f);
-				rotaA=false;
-				rotaD=false;
-				rotaS=true;
-				animator.SetBool("mysteryD",false);
-				animator.SetBool("mysteryA",false);
-				animator.SetBool("isJump",true);
-				controller.m_Rigidbody2D.velocity = Vector2.zero;
-			
-			
-			}
-			if(Input.GetKey(KeyCode.D))
-			{
-				if(!rotaD)
+				if(Input.GetKey(KeyCode.S))
 				{
-					if(musicnew)
+					if(!rotaS)
 					{
-						mT.pPause();
-						yeetmystery.Play();
-						musicnew=false;
+						musictrig=true;
+						yeetmystery.Pause();
+						mT.uUnPause();  
+						
 					}
-					else if (musictrig)
-					{
-						mT.pPause();
-						yeetmystery.UnPause();
-					}
-				}
-				animator.SetBool("mysteryD",true);
-				animator.SetBool("mysteryA",false);
-				animator.SetBool("isJump",false);
-				controller.m_Rigidbody2D.velocity = Vector2.zero;
-				Physics2D.gravity = new Vector2(100f, 0);
-				sr.sprite = mysticRed;
-				rotaA=false;
-				rotaS=false;
-				rotaD=true;
+					Physics2D.gravity = new Vector2(0, -9.8f);
+					rotaA=false;
+					rotaD=false;
+					rotaS=true;
+					animator.SetBool("mysteryD",false);
+					animator.SetBool("mysteryA",false);
+					animator.SetBool("IsJumping",true);
+					controller.m_Rigidbody2D.velocity = Vector2.zero;
 				
-			
-			}
-	   
-		}	
-	  
+				
+				}
+				if(Input.GetKey(KeyCode.D))
+				{
+					if(!rotaD)
+					{
+						if(musicnew)
+						{
+							mT.pPause();
+							yeetmystery.Play();
+							musicnew=false;
+						}
+						else if (musictrig)
+						{
+							mT.pPause();
+							yeetmystery.UnPause();
+						}
+					}
+					animator.SetBool("mysteryD",true);
+					animator.SetBool("mysteryA",false);
+					animator.SetBool("IsJumping",false);
+					controller.m_Rigidbody2D.velocity = Vector2.zero;
+					Physics2D.gravity = new Vector2(100f, 0);
+					sr.sprite = mysticRed;
+					rotaA=false;
+					rotaS=false;
+					rotaD=true;
+					
+				
+				}
+		   
+			}	
+		}
     }
 	
 	void FixedUpdate()
-	{
-		if(!dashaction&&!dashactiondelay)
+	{	
+		if(mainSwitch)
 		{
-			controller.Move(hmove * Time.fixedDeltaTime, false, jump);
-		}
-		else
-		{
-			dashaction = false;
-			controller.Move(hmove * Time.fixedDeltaTime*5, false, false);
-				movementdirection = hmove;
+			if(!dashaction&&!dashactiondelay)
+			{
+				controller.Move(hmove * Time.fixedDeltaTime, false, jump);
+			}
+			else
+			{
+				dashaction = false;
+				controller.Move(hmove * Time.fixedDeltaTime*5, false, false);
+					movementdirection = hmove;
+					
+				dashtimerswitch=true;
 				
-			dashtimerswitch=true;
+				
+			}	
+			jump=false;
+			if(dashtimerswitch)
+			{
+				dashtimer--;
+			}
+			if (hmove!=movementdirection && dashtimerswitch)
+			{
+				dashtimer=0;
+			}
 			
-			
-		}	
-		jump=false;
-		if(dashtimerswitch)
-		{
-			dashtimer--;
-		}
-		if (hmove!=movementdirection && dashtimerswitch)
-		{
-			dashtimer=0;
-		}
-		
-		if(dashtimer==0)
-		{
-			controller.m_Rigidbody2D.velocity = Vector2.zero;
-			controller.Move(hmove * Time.fixedDeltaTime, false, false);
-			dashtimer=20;
-			dashtimerswitch=false;
-			animator.SetBool("isAirdash", false);
-			animator.SetBool("IsJumping", true);
-			airdash=false;
-			dashactiondelay = false;
-		}
-		if((rotaA||rotaD)&&(velocity.x>6))
-		{	
-		
-			
+			if(dashtimer==0)
+			{
 				controller.m_Rigidbody2D.velocity = Vector2.zero;
+				controller.Move(hmove * Time.fixedDeltaTime, false, false);
+				dashtimer=20;
+				dashtimerswitch=false;
+				animator.SetBool("isAirdash", false);
+				animator.SetBool("IsJumping", true);
+				airdash=false;
+				dashactiondelay = false;
+			}
+			if((rotaA||rotaD)&&(velocity.y>2))
+			{	
+				if(rotaA)
+				{
+					Physics2D.gravity = new Vector2(-100f, -9.8f);
+				}
+				else
+				{
+					Physics2D.gravity = new Vector2(100f, -9.8f);
+				}	
+					
+			}
 		}
 	}
 	public void OnLanding()
@@ -317,5 +330,14 @@ public class Movement : MonoBehaviour
 				canWin = false;
 				break;
 		}
+	}
+	public void StopAllMovement()
+	{
+		mainSwitch = false;
+	}
+	
+	public void ResumeAllMovement()
+	{	
+		mainSwitch = true;
 	}
 }
