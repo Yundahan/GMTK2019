@@ -33,6 +33,7 @@ public class Door : MonoBehaviour
 			
 			dM.victoryswitch = true;
 			dM.victoryswitch3=true;
+			dM.victoryswitch4=true;
 			mT.pPause();
 			yeetvictoreh.Play();
 			dM.SendMessage("LevelMessage");

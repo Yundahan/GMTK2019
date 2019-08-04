@@ -44,8 +44,11 @@ public class Movement : MonoBehaviour
 	public AudioSource yeetinvinc;
 	public AudioSource yeetyouded;
 	public AudioSource yeetdeadandsad;
+	public AudioSource landing;
+	public AudioSource dashA;
+	public AudioSource dashN;
 	public MusicTrigger mT;
-	Vector2 antiVelocity = new Vector2(0, -50f);
+	public Vector2 antiVelocity = new Vector2(0, 50f);
 	private bool mainSwitch = true;
 	public bool ibility = false;
 	private float ibilityTimer = 0;
@@ -116,9 +119,11 @@ public class Movement : MonoBehaviour
 					animator.SetBool("IsJumping", false);
 					animator.SetBool("isAirdash", true);
 					airdash = true;
+					dashA.Play();
 					controller.m_Grounded = true;
 					controller.m_Rigidbody2D.velocity = Vector2.zero;
 					controller.Move(hmove * Time.fixedDeltaTime, false, true);
+					
 					dJumpDebugSwitch=false;
 				}
 				else
@@ -157,6 +162,7 @@ public class Movement : MonoBehaviour
 				dashaction = true;
 				animator.SetBool("IsJumping", false);
 				animator.SetBool("isAirdash", true);
+				dashN.Play();
 				airdash = true;
 				dashactiondelay = true;
 				
@@ -334,6 +340,10 @@ public class Movement : MonoBehaviour
 	}
 	public void OnLanding()
 	{
+		if (animator.GetBool("IsJumping"))
+		{
+			landing.Play();
+		}
 		animator.SetBool("IsJumping", false);
 		animator.SetBool("isAirdash", false);
 		dJumpDelaySwitch=true;
@@ -343,6 +353,7 @@ public class Movement : MonoBehaviour
 		airdash = false;
 		dashaction = false;
 		dashswitch = true;
+		
 	}
 	
 	public void ChangeItem(string itemType)

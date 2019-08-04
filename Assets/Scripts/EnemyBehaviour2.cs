@@ -90,6 +90,11 @@ public class EnemyBehaviour2 : MonoBehaviour
 				dead = true;
 				animator.SetBool("dead", true);
 				time = Time.time;
+				move.controller.m_Grounded = true;
+				move.controller.m_Rigidbody2D.velocity = Vector2.zero;
+				Physics2D.gravity = new Vector2(0, -14.7f);
+				move.controller.Move(move.hmove * Time.fixedDeltaTime, false, true);
+				Physics2D.gravity = new Vector2(0, -9.8f);
 			}
 			else{
 				DisplayMessage.SendMessage("DeathMessage");
