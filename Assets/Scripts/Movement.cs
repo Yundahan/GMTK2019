@@ -67,6 +67,7 @@ public class Movement : MonoBehaviour
 	public float TempleVolume =0.5f;
 	public float GravityVolume =0f;
 	public bool GravityM=false;
+	public GameObject player;
 	
 	
 	
@@ -77,7 +78,14 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+		if(System.IO.File.ReadAllText(@"C:\Users\Public\AppData\Local\temp\level.txt")=="2")
+		{	
+			player.transform.position = new Vector3(401, 23.7f, 0);
+        }
+		else
+		{
+			player.transform.position = new Vector3(-8, 0.7f, 0);
+		}
     }
 
     // Update is called once per frame
@@ -245,7 +253,7 @@ public class Movement : MonoBehaviour
 					
 					ibilityTimer = Time.time+10.6f;
 					ibility=true;
-					Debug.Log("invincible!");
+					
 					mT.pPause();
 					yeetinvinc.Play();
 					
@@ -257,8 +265,8 @@ public class Movement : MonoBehaviour
 					{
 						ibilityreset = true;
 						ibility = false;
-						ibilityTimer = Time.time+25;
-						Debug.Log("invincibleCooldown");
+						ibilityTimer = Time.time+10;
+						
 						mT.uUnPause();
 					}
 				}
@@ -269,7 +277,6 @@ public class Movement : MonoBehaviour
 					{
 						
 						ibilityreset = false;
-						Debug.Log("invincibleCooldownEnd");	
 					}
 				}
 			}	

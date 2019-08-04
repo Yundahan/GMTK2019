@@ -13,6 +13,7 @@ public class MusicTriggerTemple : MonoBehaviour
 	private bool mysterytrue = false;
 	private bool isWasPlaying = false;
 	public MusicTrigger mT;
+	public Movement move;
 	
 	
     // Start is called before the first frame update
@@ -29,6 +30,10 @@ public class MusicTriggerTemple : MonoBehaviour
 	
 	void OnTriggerExit2D(Collider2D col)
 	{
+		if(move.ibility)
+		{
+			move.yeetinvinc.Stop();	
+		}
 		if(mT.iamtheone)
 		{
 			mT.yeetchill.Stop();

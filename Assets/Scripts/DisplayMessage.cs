@@ -20,6 +20,7 @@ public class DisplayMessage : MonoBehaviour
 	public Text deathText;
 	public Text levelText;
 	public Text level2Text;
+	private string yeetusleveleetus;
 	
 	int level = 1;
 	
@@ -39,6 +40,14 @@ public class DisplayMessage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if(System.IO.File.ReadAllText(@"C:\Users\Public\AppData\Local\temp\level.txt")=="2")
+		{	
+			level = 2;
+        }
+		else
+		{
+			level =1;
+		}
         image.enabled = true;
 		image2.enabled = true;
 		r.enabled = true;
@@ -95,11 +104,12 @@ public class DisplayMessage : MonoBehaviour
 			if(mT.iamtheone)
 			{
 			player.transform.position = new Vector3(401, 23.7f, 0);
-			level++;
+			level=2;
 			move.ResumeAllMovement();
 			}
 			else
 			{
+			level=1;
 			mT.iamtheone=true;
 			player.transform.position = new Vector3(-14, 6.7f, 0);
 			animator.SetBool("EndofGame",true);
@@ -208,14 +218,20 @@ public class DisplayMessage : MonoBehaviour
 		switch(level)
 		{
 			case 1:
+				yeetusleveleetus ="1";
+				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(-8, 0.7f, 0);
 				break;
 			case 2:
+				yeetusleveleetus ="2";
+				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(401, 23.7f, 0);
 				break;
 			default:
+				yeetusleveleetus ="1";
+				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(-8, 0.7f, 0);
 				break;
