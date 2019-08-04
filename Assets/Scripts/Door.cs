@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
 	public AudioSource yeetvictoreh;
 	public MusicTrigger mT;
 	public DisplayMessage dM;
+	public MusicTriggerTemple mTT;
 	
 
     // Start is called before the first frame update
@@ -34,9 +35,20 @@ public class Door : MonoBehaviour
 			dM.victoryswitch = true;
 			dM.victoryswitch3=true;
 			dM.victoryswitch4=true;
-			mT.pPause();
+			if(mT.iamtheone)
+			{
+				mT.pPause();
+			}
+			else
+			{
+				mTT.Glasorgel.Stop();
+				mTT.mysteryT.Stop();
+				mTT.mysteryI.Stop();
+				
+			}
 			yeetvictoreh.Play();
 			dM.SendMessage("LevelMessage");
+			
 			
 		}
 	}

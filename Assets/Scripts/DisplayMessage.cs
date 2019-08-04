@@ -33,6 +33,7 @@ public class DisplayMessage : MonoBehaviour
 	public MusicTrigger mT;
 	public Movement move;
 	public AudioSource doorlock;
+	public MusicTriggerTemple mTT;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +75,16 @@ public class DisplayMessage : MonoBehaviour
 	
 			levelText.enabled = false;
 			image.enabled = false;
-			mT.uUnPause();
+			if(mT.iamtheone)
+			{
+				mT.uUnPause();
+			}
+			else
+			{
+				mT.iamtheone=true;
+				mT.yeetchill.Play();
+				
+			}
 			teleport=true;
 			victoryswitch3=false;
 			player.transform.position = new Vector3(401, 23.7f, 0);

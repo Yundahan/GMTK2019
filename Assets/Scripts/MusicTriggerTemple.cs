@@ -14,6 +14,7 @@ public class MusicTriggerTemple : MonoBehaviour
 	private bool isWasPlaying = false;
 	public MusicTrigger mT;
 	
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class MusicTriggerTemple : MonoBehaviour
 		if(mT.iamtheone)
 		{
 			mT.yeetchill.Stop();
-			Debug.Log("Hi");
+
 			mT.iamtheone=false;
 		}
 		if(GameObject.ReferenceEquals(col.gameObject, player))
