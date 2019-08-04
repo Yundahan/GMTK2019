@@ -24,10 +24,12 @@ public class DisplayMessage : MonoBehaviour
 	public bool victoryswitch=false;
 	private bool victoryswitch2=true;
 	public bool victoryswitch3=false;
+	public bool victoryswitch4=false;
 	public GameObject player;
 	public bool teleport=false;
 	public MusicTrigger mT;
 	public Movement move;
+	public AudioSource doorlock;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +61,11 @@ public class DisplayMessage : MonoBehaviour
 
 		}
 		victorytimecontrol=Time.time;
+		if(victorytimecontrol>=(victorytime-0.85f)&&victoryswitch4)
+		{
+			doorlock.Play();
+			victoryswitch4 = false;
+		}
 		if(victorytimecontrol>=victorytime&&victoryswitch3)
 		{
 	

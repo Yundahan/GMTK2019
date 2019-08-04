@@ -97,6 +97,7 @@ public class MusicTrigger : MonoBehaviour
 	
 	public void ShutUp()
 	{	
+		
 		yeetchill.Stop();
 		yeetnervous.Stop();
 	}
