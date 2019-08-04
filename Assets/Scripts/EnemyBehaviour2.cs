@@ -80,6 +80,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 		if(!move.fighting)
 		{
 			DisplayMessage.SendMessage("DeathMessage");
+			move.ded=true;
 			CameraController.SendMessage("setCameraMovement", false);
 		}
 		
@@ -92,6 +93,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 			}
 			else{
 				DisplayMessage.SendMessage("DeathMessage");
+				move.ded=true;
 				CameraController.SendMessage("setCameraMovement", false);
 			}
 		}

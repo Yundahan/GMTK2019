@@ -14,8 +14,8 @@ public class MusicTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		yeetnervous.Play();
-		chill=true;
+		yeetchill.Play();
+		chill=false;
     }
 
     // Update is called once per frame

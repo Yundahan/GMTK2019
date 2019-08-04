@@ -49,6 +49,7 @@ public class DisplayMessage : MonoBehaviour
 			{
 				Scene thisScene = SceneManager.GetActiveScene();
 				SceneManager.LoadScene(thisScene.name);
+				player.transform.position = new Vector3(401, 23.7f, 0);
 			}
 			
 			if(levelText.enabled)

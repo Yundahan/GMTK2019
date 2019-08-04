@@ -7,7 +7,7 @@ public class DeathBox : MonoBehaviour
 	public GameObject player;
 	
 	public GameObject DisplayMessage;
-	
+	public Movement move;
 	public GameObject CameraController;
 	
     // Start is called before the first frame update
@@ -27,6 +27,7 @@ public class DeathBox : MonoBehaviour
 		if(GameObject.ReferenceEquals(col.gameObject, player))
 		{
 			DisplayMessage.SendMessage("DeathMessage");
+			move.ded=true;
 			CameraController.SendMessage("setCameraMovement", false);
 		}
 	}

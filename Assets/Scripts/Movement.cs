@@ -42,6 +42,8 @@ public class Movement : MonoBehaviour
 	char musictype = 'c';
 	public AudioSource yeetmystery;
 	public AudioSource yeetinvinc;
+	public AudioSource yeetyouded;
+	public AudioSource yeetdeadandsad;
 	public MusicTrigger mT;
 	Vector2 antiVelocity = new Vector2(0, -50f);
 	private bool mainSwitch = true;
@@ -49,6 +51,13 @@ public class Movement : MonoBehaviour
 	private float ibilityTimer = 0;
 	private float ibilityCompare = 0;
 	private bool ibilityreset= false;
+	public bool ded;
+	private bool deadswitch=true;
+	private bool deadswitch2=true;
+	public float deathtimer;
+	public float deathtimercontrol;
+	
+	
 	
 	
 	
@@ -64,6 +73,33 @@ public class Movement : MonoBehaviour
     void Update()
 	
     {
+		if(ded)
+		{
+			deathtimer=Time.time;
+			if(deadswitch)
+			{
+				Physics2D.gravity = new Vector2(0, -9.8f);
+				controller.m_Rigidbody2D.velocity = Vector2.zero;
+				StopAllMovement();
+				if(rotaA||rotaD)
+				{
+					yeetmystery.Stop();
+				}
+				else
+				{
+				mT.ShutUp();
+				}
+				
+				deathtimercontrol=Time.time+11.5f;
+				yeetyouded.Play();
+				deadswitch=false;
+			}
+			else if(deathtimer >=deathtimercontrol&&deadswitch2)
+			{
+				deadswitch2=false;
+				yeetdeadandsad.Play();
+			}
+		}
 		if(mainSwitch)
 		{
 			velocity=_Rigidbody.GetPointVelocity(Vector2.one);
