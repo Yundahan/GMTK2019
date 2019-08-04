@@ -256,7 +256,6 @@ public class Movement : MonoBehaviour
 				if(ibility)
 				{
 					ibilityCompare = Time.time;
-					Debug.Log(ibilityCompare + "   " + ibilityTimer);
 					if(ibilityCompare >= ibilityTimer)
 					{
 						ibilityreset = true;
@@ -410,7 +409,9 @@ public class Movement : MonoBehaviour
 	}
 	public void StopAllMovement()
 	{
+		controller.m_Rigidbody2D.velocity = Vector2.zero;
 		mainSwitch = false;
+		
 	}
 	
 	public void ResumeAllMovement()
