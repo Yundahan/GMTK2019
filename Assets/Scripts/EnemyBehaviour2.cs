@@ -8,7 +8,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 	
 	public GameObject player;
 	public Movement move;
-	
+	public AudioSource pop;
 	public GameObject DisplayMessage;
 	
 	public GameObject CameraController;
@@ -16,7 +16,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 	public Vector3 leftV;
 	public Vector3 rightV;
 	private Vector3 dir = new Vector3(0, 0, 0);
-	
+
 	public Animator animator;
 	
 	bool dead = false;

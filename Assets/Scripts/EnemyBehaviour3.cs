@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour3 : MonoBehaviour
 {
 	bool right = false;
-	
+	public AudioSource pop;
 	public GameObject player;
 	public Movement move;
 	
@@ -54,8 +54,10 @@ public class EnemyBehaviour3 : MonoBehaviour
 		}
 		if(Time.time - jumpTime < 2.0f)
 		{
+			animator.SetBool("isJumpFrog",false);
 			return;
 		}
+		animator.SetBool("isJumpFrog",true);
 		float x = transform.position.x - apex.x;
 		if(right)
 		{
@@ -73,6 +75,8 @@ public class EnemyBehaviour3 : MonoBehaviour
 		if(transform.position.y <= rightV.y)
 		{
 			right = !right;
+			float xpenis = transform.localScale.x * -1;
+			transform.localScale = new Vector3(xpenis, transform.localScale.y, transform.localScale.z);
 			jumpTime = Time.time;
 			return;
 		}
