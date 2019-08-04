@@ -41,7 +41,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 		{
 			return;
 		}
-        if(right && transform.position.x < rightV.x)
+        if(right && (transform.position.x < rightV.x || transform.position.y < rightV.y))
 		{
 			transform.position += dir * 0.03f;
 		}
@@ -51,7 +51,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 			float x = transform.localScale.x * -1;
 			transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
 		}
-		else if(!right && transform.position.x > leftV.x)
+		else if(!right && (transform.position.x > leftV.x || transform.position.y > leftV.y))
 		{
 			transform.position -= dir * 0.03f;
 		}
@@ -85,7 +85,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 		}
 		
 		else{
-			if(player.transform.position.y - transform.position.y >= 1.0f)
+			if(player.transform.position.y - transform.position.y >= 0.8f)
 			{
 				dead = true;
 				animator.SetBool("dead", true);

@@ -91,7 +91,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 		}
 		
 		else{
-			if(player.transform.position.y - transform.position.y >= 1.0f)
+			if(player.transform.position.y - transform.position.y >= 0.8f)
 			{
 				dead = true;
 				animator.SetBool("dead", true);
