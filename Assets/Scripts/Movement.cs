@@ -41,9 +41,14 @@ public class Movement : MonoBehaviour
 	bool musicnew = true;
 	char musictype = 'c';
 	public AudioSource yeetmystery;
+	public AudioSource yeetinvinc;
 	public MusicTrigger mT;
 	Vector2 antiVelocity = new Vector2(0, -50f);
 	private bool mainSwitch = true;
+	public bool ibility = false;
+	private float ibilityTimer = 0;
+	private float ibilityCompare = 0;
+	private bool ibilityreset= false;
 	
 	
 	
@@ -199,6 +204,42 @@ public class Movement : MonoBehaviour
 				
 				}
 		   
+			}
+			if(invinc)
+			{
+				if(Input.GetKey(KeyCode.W)&&!ibilityreset&&!ibility)
+				{
+					
+					ibilityTimer = Time.time+10.6f;
+					ibility=true;
+					Debug.Log("invincible!");
+					mT.pPause();
+					yeetinvinc.Play();
+					
+				}
+				if(ibility)
+				{
+					ibilityCompare = Time.time;
+					Debug.Log(ibilityCompare + "   " + ibilityTimer);
+					if(ibilityCompare >= ibilityTimer)
+					{
+						ibilityreset = true;
+						ibility = false;
+						ibilityTimer = Time.time+25;
+						Debug.Log("invincibleCooldown");
+						mT.uUnPause();
+					}
+				}
+				if(ibilityreset)
+				{
+					ibilityCompare=Time.time;
+					if(ibilityCompare >= ibilityTimer)
+					{
+						
+						ibilityreset = false;
+						Debug.Log("invincibleCooldownEnd");	
+					}
+				}
 			}	
 		}
     }

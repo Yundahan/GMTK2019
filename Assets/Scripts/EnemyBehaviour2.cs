@@ -69,6 +69,10 @@ public class EnemyBehaviour2 : MonoBehaviour
 		{
 			return;
 		}
+		if(move.ibility)
+		{
+			return;
+		}
 		if(dead)
 		{
 			return;
@@ -78,6 +82,7 @@ public class EnemyBehaviour2 : MonoBehaviour
 			DisplayMessage.SendMessage("DeathMessage");
 			CameraController.SendMessage("setCameraMovement", false);
 		}
+		
 		else{
 			if(player.transform.position.y - transform.position.y >= 1.3f)
 			{
