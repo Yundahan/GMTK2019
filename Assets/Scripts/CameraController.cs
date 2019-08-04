@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
 		{
 			Camera.main.orthographicSize -= 0.05f;
 		}
-		if(zoomOut && Camera.main.orthographicSize < 10)
+		if(zoomOut && Camera.main.orthographicSize < 8)
 		{
 			Camera.main.orthographicSize += 0.05f;
 		}
