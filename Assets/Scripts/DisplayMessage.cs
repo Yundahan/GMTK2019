@@ -18,6 +18,9 @@ public class DisplayMessage : MonoBehaviour
 	public Text invincText;
 	public Text victoryText;
 	public Text deathText;
+	public Text levelText;
+	
+	public GameObject player;
 	
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,7 @@ public class DisplayMessage : MonoBehaviour
 		deathText.enabled = false;
 		invincText.enabled = false;
 		victoryText.enabled = false;
+		levelText.enabled = false;
     }
 
     // Update is called once per frame
@@ -45,6 +49,11 @@ public class DisplayMessage : MonoBehaviour
 			{
 				Scene thisScene = SceneManager.GetActiveScene();
 				SceneManager.LoadScene(thisScene.name);
+			}
+			
+			if(levelText.enabled)
+			{
+				player.transform.position = new Vector3(401, 23.7f, 0);
 			}
 			
 			image.enabled = false;
@@ -59,6 +68,7 @@ public class DisplayMessage : MonoBehaviour
 			deathText.enabled = false;
 			invincText.enabled = false;
 			victoryText.enabled = false;
+			levelText.enabled = false;
 		}
     }
 	
@@ -123,5 +133,14 @@ public class DisplayMessage : MonoBehaviour
 		r.enabled = true;
 		
 		deathText.enabled = true;
+	}
+	
+	void LevelMessage()
+	{
+		image.enabled = true;
+		image2.enabled = true;
+		r.enabled = true;
+		
+		levelText.enabled = true;
 	}
 }

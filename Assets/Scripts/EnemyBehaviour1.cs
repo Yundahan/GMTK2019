@@ -18,6 +18,9 @@ public class EnemyBehaviour1 : MonoBehaviour
 	
 	public Animator animator;
 	
+	public bool drops;
+	public GameObject droppedItem;
+	
 	bool dead = false;
 	float time;
 	
@@ -32,6 +35,11 @@ public class EnemyBehaviour1 : MonoBehaviour
     {
 		if(Time.time - time >= 1.0f && dead)
 		{
+			if(drops)
+			{
+				Vector2 param = new Vector2(transform.position.x, transform.position.y);
+				droppedItem.SendMessage("getDroppedAt", param);
+			}
 			Destroy(gameObject);
 			return;
 		}
@@ -82,7 +90,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 		}
 		
 		else{
-			if(player.transform.position.y - transform.position.y >= 1.3f)
+			if(player.transform.position.y - transform.position.y >= 1.0f)
 			{
 				dead = true;
 				animator.SetBool("dead", true);
