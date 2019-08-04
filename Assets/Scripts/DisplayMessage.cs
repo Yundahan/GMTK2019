@@ -22,7 +22,7 @@ public class DisplayMessage : MonoBehaviour
 	public Text level2Text;
 	private string yeetusleveleetus;
 	
-	int level = 1;
+	int level;
 	
 	private float victorytime=2000000f;
 	private float victorytimecontrol;
@@ -37,17 +37,18 @@ public class DisplayMessage : MonoBehaviour
 	public AudioSource doorlock;
 	public MusicTriggerTemple mTT;
 	public Animator animator;
+	public bool fileswitch=true;
     // Start is called before the first frame update
     void Start()
+	
     {
-		if(System.IO.File.ReadAllText(@"C:\Users\Public\AppData\Local\temp\level.txt")=="2")
-		{	
-			level = 2;
-        }
-		else
+	
+		if(!System.IO.File.Exists(@"C:\Users\Public\AppData\Local\temp\level.txt"))
 		{
-			level =1;
+			System.IO.File.Create(@"C:\Users\Public\AppData\Local\temp\level.txt");
 		}
+		
+		
         image.enabled = true;
 		image2.enabled = true;
 		r.enabled = true;
@@ -67,6 +68,20 @@ public class DisplayMessage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+	
+		if (fileswitch)
+		
+		{
+			if(System.IO.File.ReadAllText(@"C:\Users\Public\AppData\Local\temp\level.txt")=="2")
+			{	
+				level = 2;
+			}
+			else
+			{
+				level =1;
+			}
+			fileswitch = false;
+		}
 		if(victoryswitch&&victoryswitch2)
 		{
 			move.StopAllMovement();
