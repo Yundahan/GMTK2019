@@ -19,6 +19,9 @@ public class DisplayMessage : MonoBehaviour
 	public Text victoryText;
 	public Text deathText;
 	public Text levelText;
+	
+	int level = 1;
+	
 	private float victorytime=2000000f;
 	private float victorytimecontrol;
 	public bool victoryswitch=false;
@@ -75,6 +78,7 @@ public class DisplayMessage : MonoBehaviour
 			teleport=true;
 			victoryswitch3=false;
 			player.transform.position = new Vector3(401, 23.7f, 0);
+			level++;
 			move.ResumeAllMovement();
 			
 		}
@@ -82,11 +86,8 @@ public class DisplayMessage : MonoBehaviour
 		{
 			if(deathText.enabled)
 			{
-				Scene thisScene = SceneManager.GetActiveScene();
-				SceneManager.LoadScene(thisScene.name);
-				player.transform.position = new Vector3(401, 23.7f, 0);
+				resetOnDeath();
 			}
-			
 			
 			image.enabled = false;
 			image2.enabled = false;
@@ -170,5 +171,24 @@ public class DisplayMessage : MonoBehaviour
 	{
 		image.enabled = true;
 		levelText.enabled = true;
+	}
+	
+	public void resetOnDeath(){
+		Scene thisScene = SceneManager.GetActiveScene();
+		switch(level)
+		{
+			case 1:
+				SceneManager.LoadScene(thisScene.name);
+				player.transform.position = new Vector3(-8, 0.7f, 0);
+				break;
+			case 2:
+				SceneManager.LoadScene(thisScene.name);
+				player.transform.position = new Vector3(401, 23.7f, 0);
+				break;
+			default:
+				SceneManager.LoadScene(thisScene.name);
+				player.transform.position = new Vector3(-8, 0.7f, 0);
+				break;
+		}
 	}
 }

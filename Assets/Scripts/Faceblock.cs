@@ -8,6 +8,13 @@ public class Faceblock : MonoBehaviour
 	
 	float origY;
 	
+	public float jumpY;
+	public float moveY;
+	
+	public float speed;
+	
+	bool jumpDone = false;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +24,18 @@ public class Faceblock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(move && origY - 3 < transform.position.y)
+		if(move && !jumpDone)
 		{
-			transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, 0);
+			transform.position = new Vector3(transform.position.x, transform.position.y + jumpY, 0);
+			jumpDone = true;
+		}
+		if(move && origY + moveY + jumpY < transform.position.y && speed < 0)
+		{
+			transform.position = new Vector3(transform.position.x, transform.position.y + speed, 0);
+		}
+		if(move && origY + moveY + jumpY > transform.position.y && speed > 0)
+		{
+			transform.position = new Vector3(transform.position.x, transform.position.y + speed, 0);
 		}
     }
 	

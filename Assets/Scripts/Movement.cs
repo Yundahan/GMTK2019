@@ -68,16 +68,10 @@ public class Movement : MonoBehaviour
 	public float GravityVolume =0f;
 	public bool GravityM=false;
 	
-	
-	
-	
-	
-	
-	
     // Start is called before the first frame update
     void Start()
     {
-       
+		
     }
 
     // Update is called once per frame
@@ -188,7 +182,7 @@ public class Movement : MonoBehaviour
 						Temple=false;
 					}
 					controller.m_Rigidbody2D.velocity = Vector2.zero;
-					Physics2D.gravity = new Vector2(-100f, 0);
+					Physics2D.gravity = new Vector2(-50f, 0);
 					rotaA=true;
 					rotaD=false;
 					rotaS=false;
@@ -228,7 +222,7 @@ public class Movement : MonoBehaviour
 					animator.SetBool("mysteryA",false);
 					animator.SetBool("IsJumping",false);
 					controller.m_Rigidbody2D.velocity = Vector2.zero;
-					Physics2D.gravity = new Vector2(100f, 0);
+					Physics2D.gravity = new Vector2(50f, 0);
 					sr.sprite = mysticRed;
 					rotaA=false;
 					rotaS=false;
