@@ -32,6 +32,16 @@ public class Door : MonoBehaviour
 		if(GameObject.ReferenceEquals(col.gameObject, player) && move.canWin)
 		{
 			
+			
+				/*if(System.IO.File.ReadAllText(@"C:\Users\Default\Desktop\level.txt")=="2")
+				{	
+					dM.level = 2;
+				}
+				else
+				{
+					dM.level =1;
+				}*/	
+			
 			dM.victoryswitch = true;
 			dM.victoryswitch3=true;
 			dM.victoryswitch4=true;

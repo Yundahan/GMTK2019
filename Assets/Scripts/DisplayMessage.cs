@@ -22,7 +22,7 @@ public class DisplayMessage : MonoBehaviour
 	public Text level2Text;
 	private string yeetusleveleetus;
 	
-	int level;
+	public int level=1;
 	
 	private float victorytime=2000000f;
 	private float victorytimecontrol;
@@ -43,10 +43,11 @@ public class DisplayMessage : MonoBehaviour
 	
     {
 	
-		if(!System.IO.File.Exists(@"C:\Users\Public\AppData\Local\temp\level.txt"))
+		/*if(!System.IO.File.Exists(@"C:\Users\Default\Desktop\level.txt"))
 		{
-			System.IO.File.Create(@"C:\Users\Public\AppData\Local\temp\level.txt");
-		}
+			Debug.Log("Hi");
+			System.IO.File.Create(@"C:\Users\Default\Desktop\level.txt");
+		}*/
 		
 		
         image.enabled = true;
@@ -69,19 +70,7 @@ public class DisplayMessage : MonoBehaviour
     void Update()
     {
 	
-		if (fileswitch)
 		
-		{
-			if(System.IO.File.ReadAllText(@"C:\Users\Public\AppData\Local\temp\level.txt")=="2")
-			{	
-				level = 2;
-			}
-			else
-			{
-				level =1;
-			}
-			fileswitch = false;
-		}
 		if(victoryswitch&&victoryswitch2)
 		{
 			move.StopAllMovement();
@@ -153,7 +142,12 @@ public class DisplayMessage : MonoBehaviour
 			victoryText.enabled = false;
 		}
     }
+	void FixedUpdate()
 	
+	{
+	
+		
+	}
 	void SwordMessage()
 	{
 		image.enabled = true;
@@ -234,19 +228,19 @@ public class DisplayMessage : MonoBehaviour
 		{
 			case 1:
 				yeetusleveleetus ="1";
-				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
+				//System.IO.File.WriteAllText(@"C:\Users\Default\Desktop\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(-8, 0.7f, 0);
 				break;
 			case 2:
 				yeetusleveleetus ="2";
-				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
+				//System.IO.File.WriteAllText(@"C:\Users\Default\Desktop\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(401, 23.7f, 0);
 				break;
 			default:
 				yeetusleveleetus ="1";
-				System.IO.File.WriteAllText(@"C:\Users\Public\AppData\Local\temp\level.txt", yeetusleveleetus);
+				//System.IO.File.WriteAllText(@"C:\Users\Default\Desktop\level.txt", yeetusleveleetus);
 				SceneManager.LoadScene(thisScene.name);
 				player.transform.position = new Vector3(-8, 0.7f, 0);
 				break;
