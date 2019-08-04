@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
 	
 	public bool cameraMoves = true;
 	
+	public bool zoomOut = false;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,15 @@ public class CameraController : MonoBehaviour
 		if(cameraMoves)
 		{
 			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+		}
+		
+		if(!zoomOut && Camera.main.orthographicSize > 5)
+		{
+			Camera.main.orthographicSize -= 0.05f;
+		}
+		if(zoomOut && Camera.main.orthographicSize < 10)
+		{
+			Camera.main.orthographicSize += 0.05f;
 		}
     }
 	
