@@ -10,6 +10,7 @@ public class MusicTrigger : MonoBehaviour
 	private bool chill = false;
 	private bool mysterytrue = false;
 	private bool isWasPlaying = false;
+	public bool iamtheone = true;
 	
     // Start is called before the first frame update
     void Start()
@@ -26,39 +27,44 @@ public class MusicTrigger : MonoBehaviour
 	
 	void OnTriggerExit2D(Collider2D col)
 	{
-		if(GameObject.ReferenceEquals(col.gameObject, player))
+	
+		if(iamtheone)
 		{
-			if(player.transform.position.x > transform.position.x)
+			if(GameObject.ReferenceEquals(col.gameObject, player))
 			{
-				yeetchill.Stop();
-				if(!mysterytrue)
+				if(player.transform.position.x > transform.position.x)
 				{
-					isWasPlaying = true;
-					yeetnervous.Play();
+					yeetchill.Stop();
+					if(!mysterytrue)
+					{
+						isWasPlaying = true;
+						
+						yeetnervous.Play();
+					}
+					else 
+					{
+						isWasPlaying = false;
+					}
+					
+					chill=true;
 				}
-				else 
+				else
 				{
-					isWasPlaying = false;
+					yeetnervous.Stop();
+					if(!mysterytrue)
+					{
+						isWasPlaying = true;
+						yeetchill.Play();
+					}
+					else 
+					{
+						isWasPlaying = false;
+					}
+					
+					chill=false;
 				}
-				
-				chill=true;
 			}
-			else
-			{
-				yeetnervous.Stop();
-				if(!mysterytrue)
-				{
-					isWasPlaying = true;
-					yeetchill.Play();
-				}
-				else 
-				{
-					isWasPlaying = false;
-				}
-				
-				chill=false;
-			}
-		}
+		}	
 	}
 	
 	void resume()

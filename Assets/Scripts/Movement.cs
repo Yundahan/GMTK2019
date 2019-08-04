@@ -47,6 +47,9 @@ public class Movement : MonoBehaviour
 	public AudioSource landing;
 	public AudioSource dashA;
 	public AudioSource dashN;
+	public AudioSource Glasorgel;
+	public AudioSource mysteryT;
+	public AudioSource mysteryI;
 	public MusicTrigger mT;
 	public Vector2 antiVelocity = new Vector2(0, 50f);
 	private bool mainSwitch = true;
@@ -59,6 +62,11 @@ public class Movement : MonoBehaviour
 	private bool deadswitch2=true;
 	public float deathtimer;
 	public float deathtimercontrol;
+	public MusicTriggerTemple mTT;
+	public bool Temple = false;
+	public float TempleVolume =0.5f;
+	public float GravityVolume =0f;
+	public bool GravityM=false;
 	
 	
 	
@@ -84,9 +92,11 @@ public class Movement : MonoBehaviour
 				Physics2D.gravity = new Vector2(0, -9.8f);
 				controller.m_Rigidbody2D.velocity = Vector2.zero;
 				StopAllMovement();
-				if(rotaA||rotaD)
+				if(rotaA||rotaD||rotaS)
 				{
-					yeetmystery.Stop();
+					mTT.Glasorgel.Stop();
+					mTT.mysteryT.Stop();
+					mTT.mysteryI.Stop();
 				}
 				else
 				{
@@ -174,17 +184,8 @@ public class Movement : MonoBehaviour
 				{	
 					if(!rotaA)
 					{	
-						if(musicnew)
-						{
-							mT.pPause();
-							yeetmystery.Play();
-							musicnew=false;
-						}
-						else if (musictrig)
-						{
-							mT.pPause();
-							yeetmystery.UnPause();
-						}
+						GravityM=true;
+						Temple=false;
 					}
 					controller.m_Rigidbody2D.velocity = Vector2.zero;
 					Physics2D.gravity = new Vector2(-100f, 0);
@@ -201,9 +202,8 @@ public class Movement : MonoBehaviour
 				{
 					if(!rotaS)
 					{
-						musictrig=true;
-						yeetmystery.Pause();
-						mT.uUnPause();  
+						GravityM=false;
+						Temple=true;
 						
 					}
 					Physics2D.gravity = new Vector2(0, -9.8f);
@@ -220,18 +220,9 @@ public class Movement : MonoBehaviour
 				if(Input.GetKey(KeyCode.D))
 				{
 					if(!rotaD)
-					{
-						if(musicnew)
-						{
-							mT.pPause();
-							yeetmystery.Play();
-							musicnew=false;
-						}
-						else if (musictrig)
-						{
-							mT.pPause();
-							yeetmystery.UnPause();
-						}
+					{	
+						GravityM=true;
+						Temple=false;
 					}
 					animator.SetBool("mysteryD",true);
 					animator.SetBool("mysteryA",false);
@@ -337,6 +328,23 @@ public class Movement : MonoBehaviour
 					
 			}
 		}
+		if(Temple&&TempleVolume<0.5f)
+		
+		{
+			TempleVolume =TempleVolume+0.05f;
+			GravityVolume=GravityVolume-0.05f;
+			mTT.mysteryI.volume=GravityVolume;
+			mTT.mysteryT.volume=TempleVolume;	
+		}
+		if(GravityM&&GravityVolume<0.5f)
+		
+		{
+			TempleVolume =TempleVolume-0.05f;
+			GravityVolume=GravityVolume+0.05f;
+			mTT.mysteryI.volume=GravityVolume;
+			mTT.mysteryT.volume=TempleVolume;	
+		}
+		
 	}
 	public void OnLanding()
 	{
